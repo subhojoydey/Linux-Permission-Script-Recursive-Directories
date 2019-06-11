@@ -6,7 +6,7 @@ This project recreates the Ubuntu Permission Algorithm using a Bash Shell Script
 
 ## Pre-Requisites
 
-## Taking Arguments
+### Taking Arguments
 
 #### CLI Arguments
 
@@ -21,4 +21,11 @@ You can also take user input from the Command Line as:-
 * read -p 'Username/UID: ' arguments[0]
 
 This will print Username/UID: on the CLI and ask for an input which will be stored in arguments array.
+
+### Array Uses
+
+Some of the main array knowledge in bash scripts required in this script is how to print the entire array at once and to print the number of array elements.
+
+* ${#arguments[@]} - This prints the number of elements in the array. This allows you to check for array lengths.
+* printf '%s\n' "${my_array[@]}" - This prints the whole aray in one line.
 
