@@ -50,7 +50,7 @@ Some of the main array knowledge in bash scripts required in this script is how 
 
 ## Scripts
 
-### checkr.bash
+### * Script ./checkr.bash
 
 #### Overview
 
@@ -61,3 +61,5 @@ This  shell script accepts username/uid, groupname/gid and an absolute path as a
 * UserID/Username - We check the Username/UserID in the files /etc/passwd and /etc/group to verify if it is valid.
 * GroupIF/Groupname - We check the Groupname/GroupID in the files /etc/passwd and /etc/group to verify if it is valid. This                         is done in two steps. (1) we check if the groupname/groupID exists (2) we check if the username is a                         part of the group. 
 * Absolute Path - We check if the path exists. This is done by [test -d "$path"] . Where $path is a variable which holds the                   absolute path that is passed via arguments.
+
+### * Script ./.bash
