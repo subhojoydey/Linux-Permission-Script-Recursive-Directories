@@ -29,7 +29,7 @@ Some of the main array knowledge in bash scripts required in this script is how 
 * ${#arguments[@]} - This prints the number of elements in the array. This allows you to check for array lengths.
 * printf '%s\n' "${my_array[@]}" - This prints the whole aray in one line.
 
-### /etc File Column
+### Understanding File Columns in /etc
 
 #### /etc/passwd 
 
