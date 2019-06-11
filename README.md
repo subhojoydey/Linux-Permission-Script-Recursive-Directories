@@ -48,9 +48,25 @@ Some of the main array knowledge in bash scripts required in this script is how 
 * (Column 3) Group ID (GID): Each user must be assigned a group ID. You can see this number in your /etc/passwd file.
 * (Column 4) Group List: It is a list of user names of users who are members of the group. The user names, must be separated by commas.
 
+### Trap Operations
+
+Trap operations mean that whenever it calls a cleanup process is started while trapping the error messages.
+
+function CLEANUP {
+	rm credentials.txt
+	rm group
+	rm password
+	rm executable_files1.txt
+	rm Documents.txt
+	rm result.txt
+}
+trap CLEANUP exit 1
+
+Thus whenever we call exit 1 the cleanup process is started.
+
 ## Scripts
 
-### * Script ./checkr.bash
+### * Script ./checker.bash
 
 #### Overview
 
@@ -62,4 +78,39 @@ This  shell script accepts username/uid, groupname/gid and an absolute path as a
 * GroupIF/Groupname - We check the Groupname/GroupID in the files /etc/passwd and /etc/group to verify if it is valid. This                         is done in two steps. (1) we check if the groupname/groupID exists (2) we check if the username is a                         part of the group. 
 * Absolute Path - We check if the path exists. This is done by [test -d "$path"] . Where $path is a variable which holds the                   absolute path that is passed via arguments.
 
-### * Script ./.bash
+We then create a file result.txt which contains check status of username and userID as SUCCESS11 and SUCCESS12 respectively. If it is SUCCESS12 which means it is userID we then store the username beside the message as well.
+
+We repeat the same for groupame/GroupID as SUCCESS21 and SUCCESS22 and print groupname beside SUCCESS22 if groupID.
+
+### * Script ./directoryFinder.bash
+
+#### Overview
+
+This  shell script recursively searches for all files and directories and their sub-directories and then prints the ls -al with the complete path of the directories and files. Then all this is stored in "Documents.txt".
+
+
+### * Script ./PermissionDescriptor.bash
+
+#### Overview
+
+This  shell script accepts username/uid and groupname/gid and we provide appropriate permission search with preference order of user->group->other with specific execute permissions. The file is then stored as "executable_files.txt". 
+
+#### Assinging Permissions
+
+This script then recognises the user executable permission first then it moves on to group and further into others:- 
+
+* It finds a match as User Permission then it assigns as U which is followed by Y/N which indicates if there is execute         permission or not. 
+
+* This script then recognises the group executable permission if the user is a part of that group then it assigns G which is   followed by Y/N that indicates if there is exeute permission or not.
+
+* It finds a match as Others Permission then it assigns as O which is followed by Y/N which indicates if there is execute       permission or not. 
+
+### * Script ./PermissionRecursive.bash
+
+#### Overview
+
+This  shell script accepts username/uid, groupname/gid and an absolute path as variable or as an interactive tool and uses these credentails and path verify executepermissions as user, group or other. This script uses several sub-scripts. At first  "checker.bash" which creates temporary file of "credentials.txt" and "result.txt". Then it calls sub-script directoryFinder.bash which creates temporary file "Documents.txt". Finally it cal ls sub-script PermissionDescriptor.bash which creates temporary file "executable_files.txt" contaiting the final file with permissions along with subdirectories. 
+
+#### Main File 
+
+This is the main file which calls the other shell scripts and then decides the final output in a particular order of "ls -al". This also provides error messages for particular errors and performs trap operations. Whicle exiting removes temporary files which were created during the running of the script.
